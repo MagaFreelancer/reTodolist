@@ -24,6 +24,7 @@ li {
   width: 100%;
   margin: 200px auto;
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  border-radius: 20px 20px 0 0;
 }
 .todolist__header {
   position: relative;
@@ -222,7 +223,16 @@ li {
 .todolist__settings-btn:hover {
   opacity: 0.9;
 }
-.todolist__settings-btn:focus + .todolist__settings-list {
+.todolist__list-item.todolist__list-item--favorites .todolist__settings-btn-favorites {
+  position: relative;
+  background-image: url("../img/favorite.png");
+  background-repeat: no-repeat;
+  background-position: center right 20px;
+  background-size: 9px;
+  border-radius: 3px;
+  transition: opacity 0.1s ease-in-out;
+}
+.todolist__settings-btn.todolist__settings-btn--active + .todolist__settings-list {
   opacity: 1;
   pointer-events: all;
   transform: translateY(10px);

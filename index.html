@@ -32,7 +32,7 @@
                 </li>
             </ul>
             <form class="todolist__form">
-                <input type="text" class="todolist__field">
+                <input id="input-add" type="text" class="todolist__field">
                 <button class="todolist__add" type="submit">Add</button>
             </form>
             <div class="todolist__filter">
@@ -51,8 +51,8 @@
                     </li>
                 </ul>
             </div>
-            <ul class="todolist__list">
-                <li class="todolist__list-item">
+            <ul class="todolist__list" id="list">
+                <li class="todolist__list-item ">
                     <label class="todolist__label">
                         <input type="checkbox" checked class="todolist__checkbox display-checkbox">
                         <span class="todolist__checkbox-style"></span>
@@ -62,11 +62,11 @@
                     <input type="text" class="todolist__change-text">
                     <div class="todolist__func">
                         <div class="todolist__settings">
-                            <button class="todolist__settings-btn">Настроить</button>
+                            <button class="todolist__settings-btn todolist__settings-btn--active" data-settings="settings">Настроить</button>
                             <ul class="todolist__settings-list">
                                 <li class="todolist__settings-item">
                                     <button data-settings="favorite"
-                                        class="todolist__settings-btns todolist__settings-btns--active">Избранное</button>
+                                        class="todolist__settings-btns todolist__settings-btn-favorites todolist__settings-btns--active">Избранное</button>
                                 </li>
                                 <li class="todolist__settings-item">
                                     <button data-settings="delete" class="todolist__settings-btns">Удалить</button>
@@ -84,7 +84,7 @@
             </ul>
         </div>
     </div>
-    <script src="./js/index.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>

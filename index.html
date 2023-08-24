@@ -22,13 +22,13 @@
         <div class="todolist__content">
             <ul class="todolist__menu">
                 <li class="todolist__item">
-                    <button class="todolist__btn todolist__btn--active" data-card="0">All</button>
+                    <button class="todolist__btn todolist__btn--active" data-card="all">All</button>
                 </li>
                 <li class="todolist__item">
-                    <button class="todolist__btn" data-card="1">Deleted</button>
+                    <button class="todolist__btn" data-card="deleted">Deleted</button>
                 </li>
                 <li class="todolist__item">
-                    <button class="todolist__btn" data-card="2">Favorites</button>
+                    <button class="todolist__btn" data-card="favorites">Favorites</button>
                 </li>
             </ul>
             <form class="todolist__form">
@@ -36,51 +36,20 @@
                 <button class="todolist__add" type="submit">Add</button>
             </form>
             <div class="todolist__filter">
-                <button class="todolist__filter-select">
-                    Все
+                <button class="todolist__filter-select filter-btns" data-filter="">
+                    Сначала новые
                 </button>
                 <ul class="todolist__filter-list">
                     <li class="todolist__filter-item">
-                        <button class="todolist__filter-btn todolist__filter-btn--active" data-filter="all">Все</button>
+                        <button class="todolist__filter-btn filter-btns" data-filter="new">Сначала новые</button>
                     </li>
                     <li class="todolist__filter-item">
-                        <button class="todolist__filter-btn" data-filter="new">Сначала новые</button>
-                    </li>
-                    <li class="todolist__filter-item">
-                        <button class="todolist__filter-btn" data-filter="old">Сначала старые</button>
+                        <button class="todolist__filter-btn filter-btns" data-filter="old">Сначала старые</button>
                     </li>
                 </ul>
             </div>
             <ul class="todolist__list" id="list">
-                <li class="todolist__list-item ">
-                    <label class="todolist__label">
-                        <input type="checkbox" checked class="todolist__checkbox display-checkbox">
-                        <span class="todolist__checkbox-style"></span>
 
-                        <div class="todolist__text">asdsadsd</div>
-                    </label>
-                    <input type="text" class="todolist__change-text">
-                    <div class="todolist__func">
-                        <div class="todolist__settings">
-                            <button class="todolist__settings-btn todolist__settings-btn--active" data-settings="settings">Настроить</button>
-                            <ul class="todolist__settings-list">
-                                <li class="todolist__settings-item">
-                                    <button data-settings="favorite"
-                                        class="todolist__settings-btns todolist__settings-btn-favorites todolist__settings-btns--active">Избранное</button>
-                                </li>
-                                <li class="todolist__settings-item">
-                                    <button data-settings="delete" class="todolist__settings-btns">Удалить</button>
-                                </li>
-                                <li class="todolist__settings-item">
-                                    <button data-settings="change" class="todolist__settings-btns">Изменить</button>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="todolist__date">
-                            19.02.023
-                        </div>
-                    </div>
-                </li>
             </ul>
         </div>
     </div>

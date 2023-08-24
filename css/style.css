@@ -112,11 +112,6 @@ li {
   font-weight: 400;
   font-size: 15px;
 }
-.todolist__filter-select:focus + .todolist__filter-list {
-  opacity: 1;
-  pointer-events: all;
-  transform: translateX(50%) translateY(10px);
-}
 .todolist__filter-list {
   position: absolute;
   display: grid;
@@ -131,6 +126,11 @@ li {
   pointer-events: none;
   transition: transform 0.1s ease-in-out, opacity 0.1s ease-in-out;
   z-index: 10;
+}
+.todolist__filter-list--active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(50%) translateY(10px);
 }
 .todolist__filter-btn {
   display: flex;
@@ -199,6 +199,12 @@ li {
   font-weight: 400;
 }
 .todolist__change-text {
+  display: none;
+}
+.todolist__list-item.todolist__list-item--change .todolist__change-text {
+  display: block;
+}
+.todolist__list-item.todolist__list-item--change .todolist__text {
   display: none;
 }
 .todolist__settings {

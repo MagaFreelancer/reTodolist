@@ -1,11 +1,21 @@
 const list = document.getElementById("list");
-const date = {
+const menuBtns = document.querySelectorAll(".todolist__btn");
+let STATE = "all";
+let STATEINNER = "new";
+const date = getDateLocalStorage();
+
+const date2 = {
   all: [],
   deleted: [],
   favorites: [],
 };
 const form = document.querySelector(".todolist__form");
+const filter = document.querySelectorAll(".filter-btns");
+filter.forEach((item) => item.addEventListener("click", funcStateInner));
 
+menuBtns.forEach((item) => {
+  item.addEventListener("click", changeTable);
+});
 form.addEventListener("submit", collectValue);
 
 function collectValue(e) {
@@ -94,8 +104,12 @@ function addItems(path = "all") {
 </li>
    `
     );
+    check = "";
+    favoriteCls = "";
+    changed = "";
   });
   addFunctional();
+  addToLocalStorage();
 }
 function clearItems() {
   list.innerHTML = "";
@@ -127,16 +141,128 @@ function toggleSelect(item, cls) {
     item.classList.toggle(cls);
   });
 }
-function deleteItem() {
+function deleteItem(e, path = "all") {
   const id = this.closest(".todolist__list-item").id;
-  date.all.forEach((obj, index) => {
+  if (STATE === "deleted") {
+    date[STATE].forEach((obj, index) => {
+      if (Number(obj.id) === Number(id)) {
+        date[STATE].splice(index, 1);
+      }
+    });
+  } else {
+    date[path].forEach((obj, index) => {
+      if (Number(obj.id) === Number(id)) {
+        date.all.splice(index, 1);
+        obj.favorite = false;
+        translateItem(obj, (path = "deleted"));
+      }
+    });
+    date["favorites"].forEach((obj, index) => {
+      if (Number(obj.id) === Number(id)) {
+        date["favorites"].splice(index, 1);
+      }
+    });
+  }
+  clearItems();
+  addItems(STATE);
+}
+function favoriteItem() {
+  const id = this.closest(".todolist__list-item").id;
+  date[STATE].forEach((obj) => {
     if (Number(obj.id) === Number(id)) {
-      date.all.splice(index, 1);
+      if (obj.favorite) {
+        obj.favorite = false;
+        unFavorite(obj.id);
+      } else {
+        obj.favorite = true;
+        translateItem(obj, "favorites");
+      }
+    }
+  });
+  clearItems();
+  addItems(STATE);
+}
+function checkItem() {
+  const id = this.closest(".todolist__list-item").id;
+  date.all.forEach((obj) => {
+    if (Number(obj.id) === Number(id)) {
+      obj.checked = !obj.checked;
     }
   });
   clearItems();
   addItems("all");
 }
-function favoriteItem() {}
-function checkItem() {}
-function changeItem() {}
+function changeItem(e, path = "all") {
+  if (STATE === "deleted") {
+    return alert(" в этом разделе невозможно изменить");
+  } else {
+    const item = this.closest(".todolist__list-item");
+    const textItems = item.querySelector(".todolist__text");
+    const changeInput = item.querySelector(".todolist__change-text");
+    const btn = this;
+
+    if (item.classList.contains("todolist__list-item--change")) {
+      const id = this.closest(".todolist__list-item").id;
+      date[path].forEach((obj) => {
+        if (Number(obj.id) === Number(id)) {
+          obj.value = changeInput.value;
+          obj.changed = true;
+          obj.date = getNewDate();
+          textItems.innerText = obj.value;
+        }
+      });
+      btn.innerText = "Изменить";
+    } else {
+      changeInput.value = textItems.innerText;
+      btn.innerText = "Добавить";
+    }
+
+    item.classList.toggle("todolist__list-item--change");
+  }
+}
+function translateItem(obj, path = "all") {
+  date[path].push(obj);
+}
+function changeTable() {
+  const state = this.getAttribute("data-card");
+  STATE = state;
+  menuBtns.forEach((item) => item.classList.remove("todolist__btn--active"));
+  this.classList.add("todolist__btn--active");
+  clearItems();
+  addItems(STATE);
+}
+function unFavorite(id) {
+  date["favorites"].forEach((obj, index) => {
+    if (Number(obj.id) === Number(id)) {
+      date["favorites"].splice(index, 1);
+    }
+  });
+}
+function funcStateInner() {
+  const filterList = document.querySelector(".todolist__filter-list");
+  const atr = this.getAttribute("data-filter");
+  let newDate;
+  if (this.getAttribute("data-filter") != "") {
+    STATEINNER = atr;
+    if (STATEINNER === "old") {
+      newDate = date[STATE].sort((a, b) => b.id - a.id);
+    } else {
+      newDate = date[STATE].sort((a, b) => a.id - b.id);
+    }
+    date[STATE] = newDate;
+    clearItems();
+    addItems(STATE);
+  }
+
+  filterList.classList.toggle("todolist__filter-list--active");
+}
+function addToLocalStorage() {
+  localStorage.setItem("date", JSON.stringify(date));
+}
+function clearLocalStorage() {
+  localStorage.clear();
+}
+function getDateLocalStorage() {
+  return JSON.parse(localStorage.getItem("date"));
+}
+addItems("all");

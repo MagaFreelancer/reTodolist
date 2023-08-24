@@ -1,14 +1,17 @@
 const list = document.getElementById("list");
 const menuBtns = document.querySelectorAll(".todolist__btn");
+
 let STATE = "all";
 let STATEINNER = "new";
-const date = getDateLocalStorage();
 
 const date2 = {
   all: [],
   deleted: [],
   favorites: [],
 };
+localStorage.setItem("date", JSON.stringify(date2));
+const date = getDateLocalStorage();
+
 const form = document.querySelector(".todolist__form");
 const filter = document.querySelectorAll(".filter-btns");
 filter.forEach((item) => item.addEventListener("click", funcStateInner));
@@ -57,6 +60,7 @@ function addToDate(obj, path = "all") {
   date[path].push(obj);
 }
 function addItems(path = "all") {
+  console.log(date);
   let check = "";
   let favoriteCls = "";
   let changed = "";
@@ -73,36 +77,36 @@ function addItems(path = "all") {
     list.insertAdjacentHTML(
       "afterbegin",
       `
-   <li class="todolist__list-item ${favoriteCls}"  id="${item.id}">
-   <label class="todolist__label">
-       <input type="checkbox" ${check} class="todolist__checkbox display-checkbox">
-       <span class="todolist__checkbox-style"></span>
-
-       <div class="todolist__text">${item.value}</div>
-   </label>
-   <input type="text" class="todolist__change-text">
-   <div class="todolist__func">
-       <div class="todolist__settings">
-           <button class="todolist__settings-btn">Настроить</button>
-           <ul class="todolist__settings-list">
-               <li class="todolist__settings-item">
-                   <button data-settings="favorite"
-                       class="todolist__settings-btns todolist__settings-btn-favorites todolist__settings-btns--active">Избранное</button>
-               </li>
-               <li class="todolist__settings-item">
-                   <button data-settings="delete" class="todolist__settings-btns">Удалить</button>
-               </li>
-               <li class="todolist__settings-item">
-                   <button data-settings="change" class="todolist__settings-btns">Изменить</button>
-               </li>
-           </ul>
-       </div>
-       <div class="todolist__date">
-          ${changed} ${item.date}
-       </div>
-   </div>
-</li>
-   `
+     <li class="todolist__list-item ${favoriteCls}"  id="${item.id}">
+     <label class="todolist__label">
+         <input type="checkbox" ${check} class="todolist__checkbox display-checkbox">
+         <span class="todolist__checkbox-style"></span>
+  
+         <div class="todolist__text">${item.value}</div>
+     </label>
+     <input type="text" class="todolist__change-text">
+     <div class="todolist__func">
+         <div class="todolist__settings">
+             <button class="todolist__settings-btn">Настроить</button>
+             <ul class="todolist__settings-list">
+                 <li class="todolist__settings-item">
+                     <button data-settings="favorite"
+                         class="todolist__settings-btns todolist__settings-btn-favorites todolist__settings-btns--active">Избранное</button>
+                 </li>
+                 <li class="todolist__settings-item">
+                     <button data-settings="delete" class="todolist__settings-btns">Удалить</button>
+                 </li>
+                 <li class="todolist__settings-item">
+                     <button data-settings="change" class="todolist__settings-btns">Изменить</button>
+                 </li>
+             </ul>
+         </div>
+         <div class="todolist__date">
+            ${changed} ${item.date}
+         </div>
+     </div>
+  </li>
+     `
     );
     check = "";
     favoriteCls = "";

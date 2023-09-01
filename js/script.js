@@ -1,15 +1,22 @@
+(function () {
+  const obj = localStorage.getItem("date");
+  const date2 = {
+    all: [],
+    deleted: [],
+    favorites: [],
+  };
+  if (obj === null) {
+    localStorage.setItem("date", JSON.stringify(date2));
+  } else {
+    return;
+  }
+})();
 const list = document.getElementById("list");
 const menuBtns = document.querySelectorAll(".todolist__btn");
 
 let STATE = "all";
 let STATEINNER = "new";
 
-const date2 = {
-  all: [],
-  deleted: [],
-  favorites: [],
-};
-localStorage.setItem("date", JSON.stringify(date2));
 const date = getDateLocalStorage();
 
 const form = document.querySelector(".todolist__form");
@@ -51,9 +58,15 @@ function generatorId() {
   return Number(new Date());
 }
 function getNewDate() {
-  const day = new Date().getDate();
-  const month = new Date().getMonth();
-  const year = new Date().getFullYear();
+  let day = new Date().getDate();
+  let month = new Date().getMonth();
+  let year = new Date().getFullYear();
+  if (Number(day) < 10) {
+    day = "0" + day;
+  }
+  if (Number(month) < 10) {
+    month = "0" + month;
+  }
   return day + ":" + month + ":" + year;
 }
 function addToDate(obj, path = "all") {
